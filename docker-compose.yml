@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      PYTHONUNBUFFERED: "TRUE"
+      FLASK_ENV: "development"
+    volumes:
+      - ./:/app/
+    command: [ "--log-level=DEBUG", "--enable-stdio-inheritance", "--reload" ]

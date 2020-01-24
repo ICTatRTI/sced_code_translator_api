@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+API
+{% endblock %}
+{% block content %}
+<h3>API</h3>
+<p>The API accepts post requests at <code>/sced-v7-translate/</code>. You should submit a <code>sced_code</code> you want translated to SCED v7.</p>
+<p>An example <code>curl</code> request when running locally is:</p>
+<p><code>$ curl -d '{"sced_code":"010018"}' -H "Content-Type: application/json" -X POST http://localhost:8080/sced-v7-translate/</code></p>
+<h4>Response Format</h4>
+<pre>{
+    'description' : 'This description',
+    'submitted_data' : {
+        'structure' : {
+            'sced_code' : '5 digit SCED code to translate to SCED v7'
+        }
+    },
+    'info' : {
+        'structure' : {
+            'time_elapsed' : 'time it took to calculate prediction and build response',
+            'warning': 'A warning if archived SCED code could not be crosswalked to v7'
+        }
+    },
+    'translated_codes' : {
+        'description' : 'Array of equivalent SCED v7 codes, each with structure below',
+        'structure' : {
+            'sced_code': 'SCED course code',
+            'course_title': 'SCED course title/name',
+            'course_description': 'SCED course description',
+            'archive_status': 'Whether code is archived or not',
+            'v7_subsitutes': 'For archived codes, list of v7 codes that are equivalent',
+            'archived_versions': 'For active v7 codes, list of equivalent archived codes from previous SCED versions',
+            'warnings': 'warns when archived code could not be crosswalked to a SCED v7 code'
+        }
+    }
+    }
+</pre>
+    {% endblock %}
