@@ -24,13 +24,14 @@ var watchExampleVM = new Vue({
 
         var vm = this
         axios.post('/sced-v7-translate/', {
-          sced_code: this.scedCode
+          sced_code: this.scedCode,
+          web_fmt: true
         })
           .then(function (response) {
             vm.translatedCodes = response.data.translated_codes;
           })
           .catch(function (error) {
-            vm.translatedCodes = 'Error! Could not reach the API. ' + error.msg
+            vm.translatedCodes = 'Error! Could not reach the API. ' + error
           })
         }, 1000) // This is the number of milliseconds we wait for the user to stop typing.
     }

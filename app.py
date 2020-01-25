@@ -54,6 +54,9 @@ def translate_to_sced_v7():
                                 'request_type': request_type}
         return jsonify(bad_request_response)
 
+    # Return text a little differently for web format
+    web_fmt = "web_fmt" in request_data
+
     # Get SCED code input and check format
     sced_code = request_data["sced_code"]
     err, msg = is_valid_sced_request(sced_code, crosswalk)
@@ -79,5 +82,15 @@ def translate_to_sced_v7():
         'info': info,
         'translated_codes': v7_codes
     }
+
+    # Format request differently for webform reponse
+    if web_fmt:
+        # Unpack archived versions into a single string of archived SCED codes
+        for v7_code in v7_codes:
+            archived_codes = ["{0}: {1}".format(archived_code["sced_code"],
+                                                archived_code["course_title"])
+                              for archived_code in v7_code["archived_versions"]]
+            archived_codes = "\n".join(archived_codes)
+            v7_code["archived_versions"] = archived_codes if archived_codes else "None"
 
     return jsonify(response)

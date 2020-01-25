@@ -18,6 +18,7 @@
         <th style="min-width:100px">SCED v7 Code</th>
         <th>Title</th>
         <th>Description</th>
+        <th> Archived versions</th>
       </thead>
       <tbody>
         <tr v-for="code in translatedCodes">
@@ -26,6 +27,7 @@
           </td>
           <td>{{ code.course_title }}</td>
           <td>{{ code.course_description }}</td>
+          <td>{{ code.archived_versions }}</td>
         </tr>
       </tbody>
     </table>
